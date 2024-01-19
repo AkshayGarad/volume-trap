@@ -1,0 +1,14 @@
+//@version=4
+study("Volume Arrow", shorttitle="VA", overlay=true)
+
+// Input for the arrow color
+arrow_color = input(color.new(color.green, 0), title="Arrow Color")
+
+// Calculate volume difference
+volume_diff = volume - volume[1]
+
+// Condition to check if current candle's volume is greater than previous candle
+is_volume_greater = volume_diff > 0
+
+// Plot arrow on the current candle if the condition is true
+plotarrow(is_volume_greater ? 1 : na, colorup=arrow_color, offset=0, transp=0)
