@@ -1,0 +1,20 @@
+//@version=4
+study("Volume Arrow", shorttitle="VA", overlay=true)
+
+// Input for the arrow colors
+arrow_color_up = input(color.new(color.green, 0), title="Up Arrow Color")
+arrow_color_down = input(color.new(color.red, 0), title="Down Arrow Color")
+
+// Calculate volume difference
+volume_diff = volume - volume[1]
+
+// Condition to check if current candle's volume is greater than previous candle
+is_volume_greater = volume_diff > 0
+
+// Condition to check if the current candle is green or red
+is_green_candle = close > open
+is_red_candle = close < open
+
+// Plot square arrow on the current candle based on volume and candle color
+plotshape(is_volume_greater and is_green_candle ? 1 : na, style=shape.triangleup, color=arrow_color_up, size=size.small, location=location.belowbar, transp=0, offset=0)
+plotshape(is_volume_greater and is_red_candle ? -1 : na, style=shape.triangledown, color=arrow_color_down, size=size.small, location=location.abovebar, transp=0, offset=0)
